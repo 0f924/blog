@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>新博客注册</title>
+</head>
+<body>
+    <h1>新博客注册</h1>
+    <form th:action="@{/user/register}" method="post">
+        账号: <input type="text" name="username" /><br />
+        密码: <input type="password" name="password" /><br />
+        确认密码: <input type="password" name="repassword" /><br />
+        昵称: <input type="text" name="nickname" /><br />
+        密码保护问题: <input type="text" name="question" /><br />
+        密码保护答案: <input type="text" name="answer" /><br />
+        <input type="submit" value="注册" />
+    </form>
+</body>
+</html>
