@@ -65,4 +65,15 @@ public class UserController {
         }
         return "上传图片成功";
     }
+
+    @RequestMapping("/showPhoto")
+    public String showPhoto(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+        String photoPath = session.getServletContext().getRealPath("/user/photo/" + username);
+        File fphotpPath = new File(photoPath);
+        String[] photoList = fphotpPath.list();
+        request.setAttribute("photoList", photoList);
+        return "/admin/showPhoto";
+    }
 }

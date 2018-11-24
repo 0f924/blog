@@ -34,4 +34,9 @@ public class PageController {
     public String photoUpload() {
         return "admin/photoUpload";
     }
+
+    @RequestMapping("/admin/showPhoto")
+    public String showPhoto() {
+        return "admin/showPhoto";
+    }
 }
