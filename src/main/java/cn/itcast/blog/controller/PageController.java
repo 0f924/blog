@@ -29,4 +29,9 @@ public class PageController {
     public String showArticleByUser() {
         return "admin/showArticleByUser";
     }
+
+    @RequestMapping("/admin/photoUpload")
+    public String photoUpload() {
+        return "admin/photoUpload";
+    }
 }

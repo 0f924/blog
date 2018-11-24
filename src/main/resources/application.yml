@@ -39,3 +39,6 @@ spring:
     servlet:
       content-type: text/html
     cache: false
+  servlet:
+    multipart:
+      max-file-size: 50MB
