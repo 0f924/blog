@@ -2,14 +2,21 @@ server:
   port: 8080
   servlet:
     context-path: /blog
+  tomcat:
+    uri-encoding: UTF-8
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cn.itcast.blog.pojo
 spring:
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/db_blog?charsetEncoding=utf8
+    url: jdbc:mysql://127.0.0.1:3306/blog?characterEncoding=utf8
     username: unclelemon
     password:
     filters: stat,wall,log4j

@@ -19,4 +19,9 @@ public class PageController {
     public String register() {
         return "register";
     }
+
+    @RequestMapping("/admin/addArticle")
+    public String addArticle() {
+        return "admin/addArticle";
+    }
 }

@@ -25,7 +25,6 @@ public class UserController {
         } else {
             msg = "该注册名已被注册，请换个注册名注册";
         }
-
         model.addAttribute("msg", msg);
         return "msg";
     }
