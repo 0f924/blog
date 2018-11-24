@@ -24,4 +24,9 @@ public class PageController {
     public String addArticle() {
         return "admin/addArticle";
     }
+
+    @RequestMapping("/admin/showArticleByUser")
+    public String showArticleByUser() {
+        return "admin/showArticleByUser";
+    }
 }

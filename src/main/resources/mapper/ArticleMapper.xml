@@ -5,4 +5,8 @@
         insert into article(title, content, username, date, hasread)
         values (#{title}, #{content}, #{username}, #{date}, #{hasread})
     </insert>
+
+    <select id="queryArticleByUser" resultType="Article" parameterType="String">
+        select * from article where username = #{username}
+    </select>
 </mapper>

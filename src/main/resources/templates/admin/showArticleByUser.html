@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>显示用户所有日志</title>
+</head>
+
+<body>
+<h1>显示用户所有日志</h1>
+<table>
+    <thead>
+        <tr>
+            <th>标题</th>
+            <th>内容</th>
+            <th>日期</th>
+            <th>点击量</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="article,status:${page.list}">
+            <td th:text="${article.title}"></td>
+            <td th:utext="${article.content}"></td>
+            <td th:text="${article.date}"></td>
+            <td th:text="${article.hasread}"></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

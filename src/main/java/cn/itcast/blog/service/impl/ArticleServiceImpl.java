@@ -6,6 +6,8 @@ import cn.itcast.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
@@ -14,5 +16,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void addArticle(Article article) {
         articleMapper.add(article);
+    }
+
+    @Override
+    public List<Article> queryArticleByUser(String username) {
+        return articleMapper.queryArticleByUser(username);
     }
 }
