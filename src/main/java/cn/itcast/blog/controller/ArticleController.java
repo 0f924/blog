@@ -6,13 +6,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/article")
@@ -42,8 +42,29 @@ public class ArticleController {
         String username = (String) session.getAttribute("username");
         PageHelper.startPage(start, size, "id desc");
         List<Article> articles = articleService.queryArticleByUser(username);
+        Map<Integer, Integer> critiqueCounts = new HashMap<Integer, Integer>();
+        for (Article article : articles) {
+            int AId = article.getId();
+            critiqueCounts.put(AId, articleService.getCritiqueCount(AId));
+        }
         PageInfo<Article> page = new PageInfo<Article>(articles);
         request.setAttribute("page", page);
+        request.setAttribute("critiqueCounts", critiqueCounts);
         return "/admin/showArticleByUser";
+    }
+
+    @RequestMapping("/showAllArticle")
+    public String showAllArticle(@RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "5") int size, Model model) {
+        PageHelper.startPage(start, size, "id desc");
+        List<Article> articles = articleService.showAllArticle();
+        Map<Integer, Integer> critiqueCounts = new HashMap<Integer, Integer>();
+        for (Article article : articles) {
+            int AId = article.getId();
+            critiqueCounts.put(AId, articleService.getCritiqueCount(AId));
+        }
+        PageInfo<Article> page = new PageInfo<Article>(articles);
+        model.addAttribute("page", page);
+        model.addAttribute("critiqueCounts", critiqueCounts);
+        return "/showAllArticle";
     }
 }

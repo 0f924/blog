@@ -9,4 +9,5 @@ import java.util.List;
 public interface ArticleMapper {
     public void add(Article article);
     public List<Article> queryArticleByUser(String username);
+    public List<Article> queryAllArticle();
 }

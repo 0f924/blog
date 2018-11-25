@@ -1,6 +1,7 @@
 package cn.itcast.blog.service.impl;
 
 import cn.itcast.blog.mapper.ArticleMapper;
+import cn.itcast.blog.mapper.CritiqueMapper;
 import cn.itcast.blog.pojo.Article;
 import cn.itcast.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private CritiqueMapper critiqueMapper;
 
     @Override
     public void addArticle(Article article) {
@@ -21,5 +24,15 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> queryArticleByUser(String username) {
         return articleMapper.queryArticleByUser(username);
+    }
+
+    @Override
+    public int getCritiqueCount(int AId) {
+        return critiqueMapper.queryCritiqueCount(AId);
+    }
+
+    @Override
+    public List<Article> showAllArticle() {
+        return articleMapper.queryAllArticle();
     }
 }

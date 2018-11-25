@@ -9,4 +9,8 @@
     <select id="queryArticleByUser" resultType="Article" parameterType="String">
         select * from article where username = #{username}
     </select>
+
+    <select id="queryAllArticle" resultType="Article">
+        select * from article
+    </select>
 </mapper>
