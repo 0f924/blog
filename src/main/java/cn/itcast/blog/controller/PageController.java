@@ -1,42 +1,47 @@
 package cn.itcast.blog.controller;
 
+import cn.itcast.blog.pojo.Article;
+import cn.itcast.blog.service.ArticleService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PageController {
-    @RequestMapping("/")
-    public String index() {
-        return "login";
+    @Autowired
+    private ArticleService articleService;
+
+    @RequestMapping(value = { "/", "/index.html" })
+    public String index(@RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "5") int size, Model model) {
+        PageHelper.startPage(start, size, "id desc");
+        List<Article> articles = articleService.showAllArticle();
+        Map<Integer, Integer> critiqueCounts = new HashMap<Integer, Integer>();
+        for (Article article : articles) {
+            int AId = article.getId();
+            critiqueCounts.put(AId, articleService.getCritiqueCount(AId));
+        }
+        PageInfo<Article> page = new PageInfo<Article>(articles);
+        model.addAttribute("page", page);
+        model.addAttribute("critiqueCounts", critiqueCounts);
+        return "index";
     }
 
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @RequestMapping("/register")
+    @RequestMapping("/register.html")
     public String register() {
         return "register";
     }
 
-    @RequestMapping("/admin/addArticle")
-    public String addArticle() {
-        return "admin/addArticle";
+    @RequestMapping("/login.html")
+    public String login() {
+        return "login";
     }
 
-    @RequestMapping("/admin/showArticleByUser")
-    public String showArticleByUser() {
-        return "admin/showArticleByUser";
-    }
-
-    @RequestMapping("/admin/photoUpload")
-    public String photoUpload() {
-        return "admin/photoUpload";
-    }
-
-    @RequestMapping("/admin/showPhoto")
-    public String showPhoto() {
-        return "admin/showPhoto";
-    }
 }

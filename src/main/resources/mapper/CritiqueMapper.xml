@@ -4,4 +4,8 @@
     <select id="queryCritiqueCount" parameterType="int" resultType="int">
         select count(*) from critique where AId = #{AId}
     </select>
+
+    <select id="queryCritiqueByAId" parameterType="int" resultType="Critique">
+        select * from critique where AId = #{AId}
+    </select>
 </mapper>

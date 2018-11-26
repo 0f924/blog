@@ -22,14 +22,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean loginUser(User user) {
+    public boolean loginUser(User user, String[] msg) {
         if (userMapper.queryById(user.getUsername()) == null) {
+            msg[0] = "该用户名不存在";
             return false;
         } else {
             User queryUser = userMapper.queryById(user.getUsername());
             if (queryUser.getPassword().equals(user.getPassword())) {
                 return true;
             } else {
+                msg[0] = "用户名与密码不一致";
                 return false;
             }
         }

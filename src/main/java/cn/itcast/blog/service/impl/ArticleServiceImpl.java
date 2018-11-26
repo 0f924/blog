@@ -22,6 +22,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public void updateArticleDianjiliang(Article article) {
+        articleMapper.update(article);
+    }
+
+    @Override
     public List<Article> queryArticleByUser(String username) {
         return articleMapper.queryArticleByUser(username);
     }
@@ -34,5 +39,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> showAllArticle() {
         return articleMapper.queryAllArticle();
+    }
+
+    @Override
+    public List<Article> showArticleByKeyword(String keyword) {
+        return articleMapper.queryArticleByKeyword(keyword);
     }
 }

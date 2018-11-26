@@ -5,6 +5,10 @@
         insert into article(title, content, username, date, hasread)
         values (#{title}, #{content}, #{username}, #{date}, #{hasread})
     </insert>
+    
+    <update id="update" parameterType="Article">
+        update article set hasread = #{hasread} where Id = #{id}
+    </update>
 
     <select id="queryArticleByUser" resultType="Article" parameterType="String">
         select * from article where username = #{username}
@@ -12,5 +16,13 @@
 
     <select id="queryAllArticle" resultType="Article">
         select * from article
+    </select>
+
+    <select id="queryArticleById" resultType="Article" parameterType="int">
+        select * from article where id = #{id}
+    </select>
+
+    <select id="queryArticleByKeyword" resultType="Article" parameterType="String">
+        select * from article where title like concat(concat('%', #{keyword}), '%')
     </select>
 </mapper>

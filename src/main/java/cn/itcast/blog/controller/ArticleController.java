@@ -53,18 +53,18 @@ public class ArticleController {
         return "/admin/showArticleByUser";
     }
 
-    @RequestMapping("/showAllArticle")
-    public String showAllArticle(@RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "5") int size, Model model) {
+    @RequestMapping("/showArticleByKeyword")
+    public String showArticleByKeyword(String keyword,@RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "5") int size, HttpServletRequest request) {
         PageHelper.startPage(start, size, "id desc");
-        List<Article> articles = articleService.showAllArticle();
+        List<Article> articles = articleService.showArticleByKeyword(keyword);
         Map<Integer, Integer> critiqueCounts = new HashMap<Integer, Integer>();
         for (Article article : articles) {
             int AId = article.getId();
             critiqueCounts.put(AId, articleService.getCritiqueCount(AId));
         }
         PageInfo<Article> page = new PageInfo<Article>(articles);
-        model.addAttribute("page", page);
-        model.addAttribute("critiqueCounts", critiqueCounts);
-        return "/showAllArticle";
+        request.setAttribute("page", page);
+        request.setAttribute("critiqueCounts", critiqueCounts);
+        return "index";
     }
 }
