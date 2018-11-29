@@ -1,6 +1,8 @@
 package cn.itcast.blog.service.impl;
 
+import cn.itcast.blog.mapper.BlogInfoMapper;
 import cn.itcast.blog.mapper.UserMapper;
+import cn.itcast.blog.pojo.BlogInfo;
 import cn.itcast.blog.pojo.User;
 import cn.itcast.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

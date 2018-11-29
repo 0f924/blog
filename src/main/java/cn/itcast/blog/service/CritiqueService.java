@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CritiqueService {
     public List<Critique> showCritiqueByAId(int AId);
+    public void addCritique(Critique critique);
 }

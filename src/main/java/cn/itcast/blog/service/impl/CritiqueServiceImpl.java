@@ -17,4 +17,9 @@ public class CritiqueServiceImpl implements CritiqueService {
     public List<Critique> showCritiqueByAId(int AId) {
         return critiqueMapper.queryCritiqueByAId(AId);
     }
+
+    @Override
+    public void addCritique(Critique critique) {
+        critiqueMapper.addCritique(critique);
+    }
 }

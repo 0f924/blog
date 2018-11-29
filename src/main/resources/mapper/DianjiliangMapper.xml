@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.itcast.blog.mapper.DianjiliangMapper">
     <insert id="addJilu" parameterType="Dianjiliang">
-        insert into dianjiliang(Id, AId, ip, time)
-        values (#{id}, #{AId}, #{ip}, #{time})
+        insert into dianjiliang(AId, ip, time)
+        values (#{AId}, #{ip}, #{time})
     </insert>
 
-    <select id="queryDianjiliangByAId" parameterType="Dianjiliang">
+    <select id="queryDianjiliangByAId" parameterType="Dianjiliang" resultType="Dianjiliang">
         select * from dianjiliang
-        where AId = #{AId} and ip = #{ip} and time = #{time}
+        where AId = #{AId} and ip = #{ip} and to_days(time) = to_days(#{time})
     </select>
 </mapper>

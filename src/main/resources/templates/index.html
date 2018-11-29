@@ -45,7 +45,7 @@
                 <ul th:if="${!page.list.empty}" class="list-group">
                     <li th:each="article,status:${page.list}" class="list-group-item media">
                         <div class="media-body">
-                            <h4 class="media-heading"><a href="#"><span th:text="${article.title}"></span></a></h4>
+                            <h4 class="media-heading"><a th:href="@{/article/readArticle(AId=${article.id})}"><span th:text="${article.title}"></span></a></h4>
                             <small class="pull-right">发表于: <span th:text="${#dates.format(article.date, 'yyyy-MM-dd HH:mm:ss')}"></span> | 评论(<span th:text="${critiqueCounts.get(article.id)}"></span>) | 点击(<span th:text="${article.hasread}"></span>) | 作者: <span th:text="${article.username}"></span></small>
                         </div>
                     </li>

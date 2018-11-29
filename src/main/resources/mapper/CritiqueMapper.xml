@@ -8,4 +8,8 @@
     <select id="queryCritiqueByAId" parameterType="int" resultType="Critique">
         select * from critique where AId = #{AId}
     </select>
+    
+    <insert id="addCritique" parameterType="Critique">
+        insert into critique(AId, content, username) values (#{AId}, #{content}, #{username})
+    </insert>
 </mapper>

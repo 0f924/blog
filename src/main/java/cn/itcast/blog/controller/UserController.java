@@ -1,5 +1,7 @@
 package cn.itcast.blog.controller;
 
+import cn.itcast.blog.mapper.BlogInfoMapper;
+import cn.itcast.blog.pojo.BlogInfo;
 import cn.itcast.blog.pojo.User;
 import cn.itcast.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private BlogInfoMapper blogInfoMapper;
 
     @RequestMapping("/register")
     public String register(User user, Model model) {
@@ -33,6 +37,8 @@ public class UserController {
         String[] msg = new String[1];
         if (userService.loginUser(user, msg)) {
             session.setAttribute("username", user.getUsername());
+            BlogInfo blogInfo = blogInfoMapper.queryBlogInfoByUsername(user.getUsername());
+            session.setAttribute("blogInfo", blogInfo);
             return "info/login_success";
         } else {
             model.addAttribute("msg", msg[0]);
