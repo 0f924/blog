@@ -22,7 +22,7 @@
         <div class="panel-heading">登录成功</div>
         <div class="panel-body">
             用户<strong th:text="${#session.getAttribute('username')}"></strong>，欢迎登录博客系统，访问您的主页:<br />
-            <a href="#">http://www.baidu.com/</a>
+            <a th:href="@{/index.html}">博客首页</a>
         </div>
     </div>
 

@@ -60,7 +60,7 @@ public class ArticleController {
         PageInfo<Article> page = new PageInfo<Article>(articles);
         request.setAttribute("page", page);
         request.setAttribute("critiqueCounts", critiqueCounts);
-        return "/admin/showArticleByUser";
+        return "/admin/home";
     }
 
     @RequestMapping("/showArticleByKeyword")
