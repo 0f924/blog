@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -31,7 +33,7 @@ public class ArticleController {
     private DianjiliangService dianjiliangService;
 
     @RequestMapping("/addArticle")
-    public String addArticle(String title, String content, HttpServletRequest request) {
+    public void addArticle(String title, String content, HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         Article article = new Article();
@@ -41,9 +43,7 @@ public class ArticleController {
         article.setDate(new Date());
         article.setHasread(0);
         articleService.addArticle(article);
-        String msg = "添加文章成功";
-        request.setAttribute("msg", msg);
-        return "/msg";
+        response.sendRedirect("/blog/admin/home.html");
     }
 
     @RequestMapping("/showArticleByUser")

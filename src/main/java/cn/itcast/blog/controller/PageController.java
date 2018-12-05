@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,5 +70,21 @@ public class PageController {
     @RequestMapping("/admin/setting.html")
     public String setting() {
         return "/admin/setting";
+    }
+
+    @RequestMapping("/admin/write.html")
+    public String write() {
+        return "/admin/write";
+    }
+
+    @RequestMapping("/admin/galary.html")
+    public String galary(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+        String photoPath = session.getServletContext().getRealPath("/user/photo/" + username);
+        File fphotpPath = new File(photoPath);
+        String[] photoList = fphotpPath.list();
+        request.setAttribute("photoList", photoList);
+        return "/admin/galary";
     }
 }

@@ -48,8 +48,14 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/logout")
+    public String logout(HttpSession session) {
+        if (session != null) session.invalidate();
+        return "redirect:/index.html";
+    }
+
     @RequestMapping(value = "/photoUpload", method = RequestMethod.POST)
-    public @ResponseBody String photoUpload(HttpServletRequest request, MultipartFile file) {
+    public String photoUpload(HttpServletRequest request, MultipartFile file) {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         File imageDir = new File(session.getServletContext().getRealPath("/user/photo/" + username));
@@ -60,9 +66,9 @@ public class UserController {
             if (!file.isEmpty()) file.transferTo(new File(imageDir, filename));
         } catch (IOException e) {
             e.printStackTrace();
-            return "上传图片失败";
+            return "redirect:/admin/galary.html";
         }
-        return "上传图片成功";
+        return "redirect:/admin/galary.html";
     }
 
     @RequestMapping("/showPhoto")
