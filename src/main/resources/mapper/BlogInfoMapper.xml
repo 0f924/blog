@@ -4,4 +4,12 @@
     <select id="queryBlogInfoByUsername" parameterType="String" resultType="BlogInfo">
         select * from bloginfo where username = #{username}
     </select>
+    <update id="updateBlogInfoByUsername" parameterType="BlogInfo">
+        update bloginfo
+        set blogtitle = #{blogtitle}, idiograph = #{idiograph}
+        where username = #{username}
+    </update>
+    <insert id="insertBlogInfo" parameterType="BlogInfo">
+        insert into bloginfo(username, blogtitle, idiograph) values (#{username}, #{blogtitle}, #{idiograph})
+    </insert>
 </mapper>

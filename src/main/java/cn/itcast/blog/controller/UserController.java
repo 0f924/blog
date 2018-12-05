@@ -3,6 +3,7 @@ package cn.itcast.blog.controller;
 import cn.itcast.blog.mapper.BlogInfoMapper;
 import cn.itcast.blog.pojo.BlogInfo;
 import cn.itcast.blog.pojo.User;
+import cn.itcast.blog.service.BlogInfoService;
 import cn.itcast.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +26,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private BlogInfoMapper blogInfoMapper;
+    private BlogInfoService blogInfoService;
 
     @RequestMapping("/register")
     public String register(User user, Model model) {
@@ -37,7 +39,7 @@ public class UserController {
         String[] msg = new String[1];
         if (userService.loginUser(user, msg)) {
             session.setAttribute("username", user.getUsername());
-            BlogInfo blogInfo = blogInfoMapper.queryBlogInfoByUsername(user.getUsername());
+            BlogInfo blogInfo = blogInfoService.getBlogInfo(user.getUsername());
             session.setAttribute("blogInfo", blogInfo);
             return "info/login_success";
         } else {
@@ -72,5 +74,17 @@ public class UserController {
         String[] photoList = fphotpPath.list();
         request.setAttribute("photoList", photoList);
         return "/admin/showPhoto";
+    }
+
+    @RequestMapping(value = "/editBlogInfo", method = RequestMethod.POST)
+    public void editBlogInfoByUsername(HttpServletRequest request, HttpServletResponse response, String blogtitle, String idiograph) throws IOException {
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+        BlogInfo blogInfo = new BlogInfo();
+        blogInfo.setUsername(username);
+        blogInfo.setBlogtitle(blogtitle);
+        blogInfo.setIdiograph(idiograph);
+        blogInfoService.editBlogInfo(blogInfo);
+        response.sendRedirect("/blog/admin/home.html");
     }
 }

@@ -1,5 +1,6 @@
 package cn.itcast.blog.controller;
 
+import cn.itcast.blog.mapper.BlogInfoMapper;
 import cn.itcast.blog.pojo.Article;
 import cn.itcast.blog.service.ArticleService;
 import com.github.pagehelper.PageHelper;
@@ -20,6 +21,8 @@ import java.util.Map;
 public class PageController {
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private BlogInfoMapper blogInfoMapper;
 
     @RequestMapping(value = { "/", "/index.html" })
     public String index(@RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "5") int size, Model model) {
@@ -61,5 +64,10 @@ public class PageController {
         request.setAttribute("page", page);
         request.setAttribute("critiqueCounts", critiqueCounts);
         return "/admin/home";
+    }
+
+    @RequestMapping("/admin/setting.html")
+    public String setting() {
+        return "/admin/setting";
     }
 }
